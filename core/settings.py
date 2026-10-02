@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-if config("DATABSE_URL", default=None):
+if config("DATABASE_URL", default=None):
   DATABASES = {
     "default": dj_database_url.parse(
       config("DATABASE_URL"),
