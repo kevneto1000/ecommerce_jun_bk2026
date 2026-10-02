@@ -1,0 +1,6 @@
+.env
+env/
+__pyache__/
+*.pyc
+media/
+staticfiles/
