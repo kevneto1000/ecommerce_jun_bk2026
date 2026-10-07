@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
 from datetime import timedelta
+import os
 import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,7 +32,7 @@ DEBUG = config("DEBUG", default=True, cast=bool)
 ALLOWED_HOSTS = [
   "localhost",
   "127.0.0.1",
-  "https://ecommercejunbk2026-production.up.railway.app",
+  "ecommercejunbk2026-production.up.railway.app",
 ]
 
 
@@ -98,6 +99,13 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
+DATABASES = {
+  "default": dj_database_url.parse(
+    os.getenv("DATABASE_URL")
+  )
+}
+
+'''
 if config("DATABASE_URL", default=None):
   DATABASES = {
     "default": dj_database_url.parse(
@@ -117,7 +125,7 @@ else:
             'PORT': config("DB_PORT"),
         }
     }
-
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
