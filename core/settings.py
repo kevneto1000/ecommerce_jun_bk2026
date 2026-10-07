@@ -35,6 +35,10 @@ ALLOWED_HOSTS = [
   "ecommercejunbk2026-production.up.railway.app",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+  "ecommercejunbk2026-production.up.railway.app",
+]
+
 
 # Application definition
 
