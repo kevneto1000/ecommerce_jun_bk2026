@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate
 from django.utils import timezone
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
+import resend
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -50,16 +51,23 @@ class RegisterSerializer(serializers.ModelSerializer):
       }
     )
 
-    email = EmailMultiAlternatives( 
-      subject="Verify your email",
-      body=f"Your verification code is {otp}",
-      from_email=settings.DEFAULT_FROM_EMAIL,
-      to=[user.email],
-    )
+    resend.Emails.send({
+      "from": settings.DEFAULT_FROM_EMAIL,
+      "to": [user.email],
+      "subject": "Verify your email",
+      "html": html_message,
+    })
 
-    email.attach_alternative(html_message, "text/html")
+    # email = EmailMultiAlternatives( 
+    #   subject="Verify your email",
+    #   body=f"Your verification code is {otp}",
+    #   from_email=settings.DEFAULT_FROM_EMAIL,
+    #   to=[user.email],
+    # )
 
-    email.send()
+    # email.attach_alternative(html_message, "text/html")
+
+    # email.send()
 
     return user
 
