@@ -38,6 +38,7 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
   "https://ecommercejunbk2026-production.up.railway.app",
+  "https://shopnow-main-jun2026.vercel.app",
 ]
 
 
