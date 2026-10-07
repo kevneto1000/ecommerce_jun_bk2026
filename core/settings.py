@@ -184,6 +184,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# Compatibility shim: django-cloudinary-storage's collectstatic command still reads
+# settings.STATICFILES_STORAGE, which Django no longer defines. Keep in sync with STORAGES["staticfiles"].
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
