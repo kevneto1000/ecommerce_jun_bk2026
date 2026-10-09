@@ -7,6 +7,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils import timezone
 
+import resend
+
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -101,6 +103,18 @@ class ResendOTPView(APIView):
       }
     )
 
+    try:
+      resend.Emails.send({
+        "from": settings.DEFAULT_FROM_EMAIL,
+        "to": [user.email],
+        "subject": "Your new verification code",
+        "html": html_message,
+      })
+    except Exception as e:
+      print("RESEND OTP ERROR:", repr(e))
+      raise
+
+    '''
     new_email = EmailMultiAlternatives(
       subject="You new verification code",
       body=f"Your new verification code is {new_otp}",
@@ -110,6 +124,7 @@ class ResendOTPView(APIView):
 
     new_email.attach_alternative(html_message, "text/html")
     new_email.send()
+    '''
 
     return Response(
       {"message": "A new verification code has been sent to your email."}, 

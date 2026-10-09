@@ -24,6 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 RESEND_API_KEY = config("RESEND_API_KEY")
 resend.api_key = RESEND_API_KEY
 
+DEFAULT_FROM_EMAIL = config(
+  "DEFAULT_FROM_EMAIL",
+  default="onboarding@resend.dev"
+)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
@@ -31,7 +36,7 @@ resend.api_key = RESEND_API_KEY
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", default=True, cast=bool)
+DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = [
   "localhost",
@@ -79,15 +84,15 @@ MIDDLEWARE = [
 ]
 
 
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True
 
-'''
+
 CORS_ALLOWED_ORIGINS = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
   "https://shopnow-main-jun2026.vercel.app",
 ]
-'''
+
 
 
 ROOT_URLCONF = 'core.urls'

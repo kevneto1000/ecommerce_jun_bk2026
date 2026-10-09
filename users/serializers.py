@@ -51,12 +51,17 @@ class RegisterSerializer(serializers.ModelSerializer):
       }
     )
 
-    resend.Emails.send({
-      "from": settings.DEFAULT_FROM_EMAIL,
-      "to": [user.email],
-      "subject": "Verify your email",
-      "html": html_message,
-    })
+    try:
+      email_result = resend.Emails.send({
+        "from": settings.DEFAULT_FROM_EMAIL,
+        "to": [user.email],
+        "subject": "Verify your email",
+        "html": html_message,
+      })
+      print("RESEND EMAIL RESULT:", email_result)
+    except Exception as e:
+      print("RESEND EMAIL ERROR:", repr(e))
+      raise
 
     # email = EmailMultiAlternatives( 
     #   subject="Verify your email",
