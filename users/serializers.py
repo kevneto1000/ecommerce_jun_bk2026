@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate
 from django.utils import timezone
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
-import resend
+# import resend
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -51,6 +51,7 @@ class RegisterSerializer(serializers.ModelSerializer):
       }
     )
 
+    '''
     try:
       email_result = resend.Emails.send({
         "from": settings.DEFAULT_FROM_EMAIL,
@@ -62,17 +63,18 @@ class RegisterSerializer(serializers.ModelSerializer):
     except Exception as e:
       print("RESEND EMAIL ERROR:", repr(e))
       raise
+    '''
 
-    # email = EmailMultiAlternatives( 
-    #   subject="Verify your email",
-    #   body=f"Your verification code is {otp}",
-    #   from_email=settings.DEFAULT_FROM_EMAIL,
-    #   to=[user.email],
-    # )
+    email = EmailMultiAlternatives( 
+      subject="Verify your email",
+      body=f"Your verification code is {otp}",
+      from_email=settings.DEFAULT_FROM_EMAIL,
+      to=[user.email],
+    )
 
-    # email.attach_alternative(html_message, "text/html")
+    email.attach_alternative(html_message, "text/html")
 
-    # email.send()
+    email.send(fail_silently=False)
 
     return user
 

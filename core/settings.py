@@ -16,11 +16,12 @@ import os
 import dj_database_url
 from decouple import config
 import cloudinary
-import resend
+# import resend
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+'''
 RESEND_API_KEY = config("RESEND_API_KEY")
 resend.api_key = RESEND_API_KEY
 
@@ -28,6 +29,7 @@ DEFAULT_FROM_EMAIL = config(
   "DEFAULT_FROM_EMAIL",
   default="onboarding@resend.dev"
 )
+'''
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
@@ -211,15 +213,15 @@ MAILERS = {
 }
 '''
 
-'''
+
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.resend.com"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
-DEFAULT_FROM_EMAIL = "onboarding@resend.dev"
-'''
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 '''
 CLOUDINARY_STORAGE = {
